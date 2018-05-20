@@ -13,7 +13,7 @@ class Read extends React.Component {
   }
 
   render() {
-    return <p>Normal: {this.state.text}</p>;
+    return <p>Read text from stream: {this.state.text}</p>;
   }
 }
 

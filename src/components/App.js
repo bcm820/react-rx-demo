@@ -10,12 +10,12 @@ class App extends React.Component {
     return (
       <StyledApp>
         <header>
-          <h1>streamState demo</h1>
+          <h1>stream-state demo</h1>
           <Logo />
         </header>
-        Component 1: <Write />
-        Component 2: <Read />
-        Component 3: <ReadReverse />
+        <Write />
+        <Read />
+        <ReadReverse />
       </StyledApp>
     );
   }

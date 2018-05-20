@@ -8,6 +8,7 @@ const StyledApp = styled.div`
     height: 200px;
     padding: 20px;
     color: white;
+    margin-bottom: 20px;
   }
 
   > h1 {

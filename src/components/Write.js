@@ -2,14 +2,12 @@ import React from 'react';
 import { text$ } from '../streams';
 
 class Write extends React.Component {
-  handleChange = event => {
-    text$.next(event.target.value);
-  };
+  handleChange = event => text$.next(event.target.value);
 
   render() {
     return (
       <div>
-        <input type="text" onChange={this.handleChange} />
+        Write text to stream: <input type="text" onChange={this.handleChange} />
       </div>
     );
   }

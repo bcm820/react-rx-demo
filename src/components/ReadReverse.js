@@ -13,8 +13,8 @@ class ReadReverse extends React.Component {
   }
 
   render() {
-    const text = [...this.state.text].reverse().join('');
-    return <p>Reversed: {text}</p>;
+    const reversedText = [...this.state.text].reverse().join('');
+    return <p>Reversed text: {reversedText}</p>;
   }
 }
 
