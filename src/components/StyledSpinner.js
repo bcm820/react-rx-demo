@@ -12,6 +12,7 @@ const StyledLogo = styled.img.attrs({
   position: fixed;
   bottom: 0;
   left: 0;
+
   animation-name: spin;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

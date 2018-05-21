@@ -8,7 +8,7 @@ export const initialConfig = {
   resize: {
     from: 80,
     to: 200,
-    duration: 1000,
+    duration: 2000,
     ease: tween.exponential.easeInOut
   }
 };

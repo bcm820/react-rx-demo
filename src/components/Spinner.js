@@ -14,10 +14,12 @@ class Spinner extends React.Component {
   };
 
   componentDidMount() {
-    this._config$ = spinnerConfig$.pipe(debounceTime(500)).subscribe(config => {
-      this.setState({ speed: config.spin.speed });
-      this.configureTween(config.resize, 'resize');
-    });
+    this._config$ = spinnerConfig$
+      .pipe(debounceTime(1000))
+      .subscribe(config => {
+        this.setState({ speed: config.spin.speed });
+        this.configureTween(config.resize, 'resize');
+      });
   }
 
   componentWillUnmount() {

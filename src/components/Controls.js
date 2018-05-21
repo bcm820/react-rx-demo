@@ -42,7 +42,7 @@ class Controls extends React.Component {
           <input
             type="number"
             min={key === 'speed' ? 1 : 0}
-            max={key === 'speed' ? 10 : null}
+            max={key === 'speed' ? 10 : 1000}
             step={key !== 'speed' ? 50 : 1}
             value={this.state[category][key]}
             onChange={e => this.handleChange(category, key, e.target.value)}
