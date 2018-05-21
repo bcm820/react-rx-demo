@@ -10,8 +10,8 @@ const StyledLogo = styled.img.attrs({
   }
 })`
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 10%;
+  left: 5%;
 
   animation-name: spin;
   animation-timing-function: linear;
@@ -23,6 +23,18 @@ const StyledLogo = styled.img.attrs({
     }
     to {
       transform: rotate(360deg);
+    }
+    0% {
+      color: red;
+    }
+    25% {
+      color: yellow;
+    }
+    50% {
+      color: blue;
+    }
+    100% {
+      color: green;
     }
   }
 `;

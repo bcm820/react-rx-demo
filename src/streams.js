@@ -1,16 +1,13 @@
 import { BehaviorSubject } from 'rxjs';
-import tween from 'xstream/extra/tween';
 
-export const initialConfig = {
+export const initialState = {
   spin: {
-    speed: 5
+    speed: 3
   },
   resize: {
     from: 80,
-    to: 200,
-    duration: 2000,
-    ease: tween.exponential.easeInOut
+    to: 80
   }
 };
 
-export const spinnerConfig$ = new BehaviorSubject(initialConfig);
+export const observedState$ = new BehaviorSubject(initialState);

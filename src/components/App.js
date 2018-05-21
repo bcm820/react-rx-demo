@@ -1,10 +1,10 @@
 import React from 'react';
 import Spinner from './Spinner';
-import Controls from './Controls';
+import NumberControls from './NumberControls';
 
 const App = () => (
   <div>
-    <Controls />
+    <NumberControls />
     <Spinner />
   </div>
 );

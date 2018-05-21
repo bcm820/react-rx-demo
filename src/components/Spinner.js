@@ -2,20 +2,20 @@ import React from 'react';
 import StyledSpinner from './StyledSpinner';
 import logo from '../assets/logo.svg';
 
-import { initialConfig, spinnerConfig$ } from '../streams';
-import { debounceTime } from 'rxjs/operators';
+import { initialState, observedState$ } from '../streams';
+import { throttleTime } from 'rxjs/operators';
 import tween from 'xstream/extra/tween';
 import concat from 'xstream/extra/concat';
 
 class Spinner extends React.Component {
   state = {
-    speed: initialConfig.spin.speed,
-    resize: initialConfig.resize.from
+    speed: initialState.spin.speed,
+    resize: initialState.resize.from
   };
 
   componentDidMount() {
-    this._config$ = spinnerConfig$
-      .pipe(debounceTime(1000))
+    this._subscription$ = observedState$
+      .pipe(throttleTime(1000))
       .subscribe(config => {
         this.setState({ speed: config.spin.speed });
         this.configureTween(config.resize, 'resize');
@@ -23,18 +23,25 @@ class Spinner extends React.Component {
   }
 
   componentWillUnmount() {
-    this._config$.unsubscribe();
+    this._subscription$.unsubscribe();
   }
 
   configureTween = (config, key) => {
-    const tweens = this.mirrorTween(config);
-    this.setTweenState(tweens, key);
+    const tweenConfig = {
+      ...config,
+      duration: 1000,
+      ease: tween.exponential.easeInOut
+    };
+    const mirroredTweenConfig = this.mirrorAnimation(tweenConfig);
+    const tweenArray = mirroredTweenConfig.map(obj => tween(obj));
+    const tween$ = concat(...tweenArray);
+    this.setTweenState(tween$, key);
   };
 
-  mirrorTween = config => {
-    const [from, to] = [config.to, config.from];
-    const mirror = { ...config, from, to };
-    return concat(...[config, mirror].map(obj => tween(obj)));
+  mirrorAnimation = animationRange => {
+    const [from, to] = [animationRange.to, animationRange.from];
+    const mirroredAnimationRange = { ...animationRange, from, to };
+    return [animationRange, mirroredAnimationRange];
   };
 
   setTweenState = (tween$, key) =>
