@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
 const StyledLogo = styled.img.attrs({
-  style: ({ size, speed }) => {
+  style: ({ resize, speed }) => {
     const range = [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     return {
-      height: `${size}px`,
+      height: `${resize}px`,
       animationDuration: `${range[speed]}s`
     };
   }
 })`
+  position: fixed;
+  bottom: 0;
+  left: 0;
   animation-name: spin;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

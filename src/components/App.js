@@ -5,7 +5,6 @@ import Controls from './Controls';
 const App = () => (
   <div>
     <Controls />
-    <br />
     <Spinner />
   </div>
 );

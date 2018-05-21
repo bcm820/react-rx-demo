@@ -14,12 +14,7 @@ class Controls extends React.Component {
 
   render() {
     const sectionKeys = Object.keys(this.state);
-    return (
-      <div>
-        {sectionKeys.map(this.renderSections)}
-        <button onClick={this.handleClick}>Go!</button>
-      </div>
-    );
+    return <div>{sectionKeys.map(this.renderSections)}</div>;
   }
 
   renderSections = category => {
@@ -42,13 +37,13 @@ class Controls extends React.Component {
   renderControl = (category, key) => {
     return (
       <tr key={key}>
-        <td width={80}>{key}</td>
+        <td>{key}</td>
         <td>
           <input
-            style={{ width: 50 }}
             type="number"
-            min={key === 'speed' ? 1 : null}
+            min={key === 'speed' ? 1 : 0}
             max={key === 'speed' ? 10 : null}
+            step={key !== 'speed' ? 50 : 1}
             value={this.state[category][key]}
             onChange={e => this.handleChange(category, key, e.target.value)}
           />
@@ -60,10 +55,7 @@ class Controls extends React.Component {
   handleChange = (category, key, value) => {
     const controls = this.state[category];
     this.setState({ [category]: { ...controls, [key]: value } });
-  };
-
-  handleClick = () => {
-    spinnerConfig$.next(this.state);
+    setTimeout(() => spinnerConfig$.next(this.state), 500);
   };
 }
 

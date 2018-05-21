@@ -5,7 +5,7 @@ export const initialConfig = {
   spin: {
     speed: 5
   },
-  size: {
+  resize: {
     from: 80,
     to: 200,
     duration: 1000,
