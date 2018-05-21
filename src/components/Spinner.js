@@ -2,28 +2,25 @@ import React from 'react';
 import StyledSpinner from './StyledSpinner';
 import logo from '../assets/logo.svg';
 
-import { initialState, observedState$ } from '../streams';
-import { throttleTime } from 'rxjs/operators';
+import { NumberSubject$ } from './App';
+import { debounceTime } from 'rxjs/operators';
 import tween from 'xstream/extra/tween';
 import concat from 'xstream/extra/concat';
 
 class Spinner extends React.Component {
-  state = {
-    speed: initialState.spin.speed,
-    resize: initialState.resize.from
-  };
+  state = {};
 
   componentDidMount() {
-    this._subscription$ = observedState$
-      .pipe(throttleTime(1000))
-      .subscribe(config => {
-        this.setState({ speed: config.spin.speed });
-        this.configureTween(config.resize, 'resize');
-      });
+    this._NumberSubscription = NumberSubject$.pipe(
+      debounceTime(1000)
+    ).subscribe(config => {
+      this.setState({ speed: config.spin.speed });
+      this.configureTween(config.resize, 'resize');
+    });
   }
 
   componentWillUnmount() {
-    this._subscription$.unsubscribe();
+    this._NumberSubscription.unsubscribe();
   }
 
   configureTween = (config, key) => {
@@ -53,8 +50,8 @@ class Spinner extends React.Component {
     return (
       <StyledSpinner
         src={logo}
-        speed={this.state.speed}
-        resize={this.state.resize}
+        speed={this.state.speed || 3}
+        resize={this.state.resize || 80}
       />
     );
   }

@@ -3,9 +3,10 @@ import styled from 'styled-components';
 const StyledLogo = styled.img.attrs({
   style: ({ resize, speed }) => {
     const range = [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    const duration = speed < 1 ? 10 : speed > 10 ? 1 : range[speed];
     return {
       height: `${resize}px`,
-      animationDuration: `${range[speed]}s`
+      animationDuration: `${duration}s`
     };
   }
 })`

@@ -1,23 +1,28 @@
 import React from 'react';
-import { initialState, observedState$ } from '../streams';
+import { NumberSubject$ } from './App';
 
 class NumberControls extends React.Component {
-  state = initialState;
+  state = {
+    spin: {
+      speed: 3
+    },
+    resize: {
+      from: 80,
+      to: 80
+    }
+  };
 
-  componentDidMount() {
-    this._subscription$ = observedState$.subscribe(state =>
-      this.setState(state)
-    );
+  componentWillMount() {
+    NumberSubject$.next(this.state);
   }
 
-  componentWillUnmount() {
-    this._subscription$.unsubscribe();
+  componentDidUpdate() {
+    NumberSubject$.next(this.state);
   }
 
   handleChange = (groupLabel, control, changedValue) => {
     const group = this.state[groupLabel];
     this.setState({ [groupLabel]: { ...group, [control]: changedValue } });
-    setTimeout(() => observedState$.next(this.state), 100);
   };
 
   render() {
