@@ -11,10 +11,10 @@ class NumberControls extends React.Component {
   }
 
   handleChange = (groupLabel, control, value) => {
-    const asInt = parseInt(value, 10);
+    const intValue = parseInt(value, 10);
     const group = this.state[groupLabel];
     this.setState({
-      [groupLabel]: { ...group, [control]: isNaN(asInt) ? value : asInt }
+      [groupLabel]: { ...group, [control]: isNaN(intValue) ? value : intValue }
     });
   };
 

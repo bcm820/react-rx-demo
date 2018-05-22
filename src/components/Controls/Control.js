@@ -9,7 +9,7 @@ export const Control = ({ label, value, handleChange, group }) => {
           <input
             type="number"
             value={value}
-            min={label === 'speed' ? 1 : label === 'duration' ? 500 : 0}
+            min={label === 'speed' ? 1 : label === 'duration' ? 1000 : 0}
             max={label === 'speed' ? 10 : label === 'duration' ? 5000 : 1000}
             step={label === 'speed' ? 1 : label === 'duration' ? 100 : 20}
             onChange={e => handleChange(group, label, e.target.value)}

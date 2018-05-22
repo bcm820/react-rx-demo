@@ -26,8 +26,8 @@ class Spinner extends React.Component {
     this._subscription.unsubscribe();
   }
 
-  animate = controls => {
-    const animationConfig = { ...controls, ease: this.state.movement };
+  animate = resizeConfig => {
+    const animationConfig = { ...resizeConfig, ease: this.state.movement };
     const mirroredAnimConfig = this.mirror(animationConfig);
     const loopedAnimConfig = mirroredAnimConfig.map(obj => tween(obj));
     const resize$ = concat(...loopedAnimConfig);

@@ -12,7 +12,7 @@ const StyledSpinner = styled.img.attrs({
   }
 })`
   position: fixed;
-  bottom: 5%;
+  bottom: 0%;
 
   animation-name: spin;
   animation-timing-function: linear;
@@ -28,8 +28,14 @@ const StyledSpinner = styled.img.attrs({
     0% {
       left: 0%;
     }
+    25% {
+      left: 25%;
+    }
     50% {
-      left: 75%;
+      left: 50%;
+    }
+    75% {
+      left: 25%;
     }
     100% {
       left: 0%;
