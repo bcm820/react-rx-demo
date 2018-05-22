@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 
 const StyledLogo = styled.img.attrs({
-  style: ({ resize, speed }) => {
+  style: ({ resize, speed, direction }) => {
     const range = [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const duration = speed < 1 ? 10 : speed > 10 ? 1 : range[speed];
     return {
       height: `${resize}px`,
-      animationDuration: `${duration}s`
+      animationDuration: `${duration}s`,
+      animationDirection: `${direction}`
     };
   }
 })`
   position: fixed;
-  bottom: 10%;
+  bottom: 5%;
   left: 5%;
 
   animation-name: spin;

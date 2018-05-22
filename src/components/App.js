@@ -1,13 +1,12 @@
 import React from 'react';
-import Spinner from './Spinner';
-import NumberControls from './NumberControls';
 
-import { Subject } from 'rxjs';
-export const NumberSubject$ = new Subject();
+import Controls from './Controls';
+import Spinner from './Spinner';
 
 const App = () => (
   <div>
-    <NumberControls />
+    <h4>React-Rx Demo</h4>
+    <Controls />
     <Spinner />
   </div>
 );

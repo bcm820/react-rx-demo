@@ -8,10 +8,19 @@ body {
 }
 
 td {
-  width: 100px;
+  width: 150px;
+}
+
+div {
+  margin-bottom: 20px;
 }
 
 input {
   width: 100px;
-  font-size: 28px;
+  font-size: 20px;
+}
+
+select {
+  width: 250px;
+  font-size: 20px;
 }
