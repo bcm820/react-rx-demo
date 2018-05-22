@@ -1,5 +1,5 @@
 import React from 'react';
-import { initialControls, Control$ } from '../../subjects';
+import { initialControls, control$ } from '../../subjects';
 import { ControlGroup } from './ControlGroup';
 import Movements from './Movements';
 
@@ -7,7 +7,7 @@ class NumberControls extends React.Component {
   state = initialControls;
 
   componentDidUpdate() {
-    Control$.next(this.state);
+    control$.next(this.state);
   }
 
   handleChange = (groupLabel, control, value) => {

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Movement$ } from '../../subjects';
+import { movement$ } from '../../subjects';
 import tween from 'xstream/extra/tween';
 
 class Movements extends React.Component {
   state = {
-    tween: { ...tween },
+    movementLib: { ...tween },
     current: 'exponential.easeInOut'
   };
 
   componentDidUpdate() {
-    const [group, func] = this.state.current.split('.');
-    Movement$.next(this.state.tween[group][func]);
+    const [category, movement] = this.state.current.split('.');
+    movement$.next(this.state.movementLib[category][movement]);
   }
 
   handleChange = event => this.setState({ current: event.target.value });
@@ -21,10 +21,10 @@ class Movements extends React.Component {
         <strong>movement: </strong>
         <br />
         <select onChange={this.handleChange} value={this.state.current}>
-          {Object.keys(this.state.tween).map(group =>
-            Object.keys(this.state.tween[group]).map(func => (
-              <option key={func} value={`${group}.${func}`}>
-                {group}: {func}
+          {Object.keys(this.state.movementLib).map(category =>
+            Object.keys(this.state.movementLib[category]).map(movement => (
+              <option key={movement} value={`${category}.${movement}`}>
+                {category}: {movement}
               </option>
             ))
           )}

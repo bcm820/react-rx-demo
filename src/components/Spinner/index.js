@@ -2,7 +2,7 @@ import React from 'react';
 import StyledSpinner from './StyledSpinner';
 import logo from '../../assets/logo.svg';
 
-import { Control$, Movement$ } from '../../subjects';
+import { movement$, control$ } from '../../subjects';
 import { combineLatest } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import tween from 'xstream/extra/tween';
@@ -12,12 +12,13 @@ class Spinner extends React.Component {
   state = {};
 
   componentDidMount() {
-    this._subscription = combineLatest(Movement$, Control$)
+    this._subscription = combineLatest(movement$, control$)
       .pipe(debounceTime(500))
       .subscribe(([movement, controls]) => {
-        const { speed, direction } = controls.spin;
+        const { spin, resize } = controls;
+        const { speed, direction } = spin;
         this.setState({ movement, speed, direction });
-        this.setSizeRange(controls.resize);
+        this.animate(resize);
       });
   }
 
@@ -25,15 +26,12 @@ class Spinner extends React.Component {
     this._subscription.unsubscribe();
   }
 
-  setSizeRange = controls => {
-    controls = {
-      ...controls,
-      ease: this.state.movement
-    };
-    const mirroredControls = this.mirror(controls);
-    const controlsArray = mirroredControls.map(obj => tween(obj));
-    const size$ = concat(...controlsArray);
-    this.setSizeAnimation(size$);
+  animate = controls => {
+    const animationConfig = { ...controls, ease: this.state.movement };
+    const mirroredAnimConfig = this.mirror(animationConfig);
+    const loopedAnimConfig = mirroredAnimConfig.map(obj => tween(obj));
+    const resize$ = concat(...loopedAnimConfig);
+    resize$.subscribe({ next: attr => this.setState({ resize: attr }) });
   };
 
   mirror = range => {
@@ -41,11 +39,6 @@ class Spinner extends React.Component {
     const mirroredRange = { ...range, from, to };
     return [range, mirroredRange];
   };
-
-  setSizeAnimation = size$ =>
-    size$.subscribe({
-      next: attr => this.setState({ resize: attr })
-    });
 
   render() {
     return (

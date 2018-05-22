@@ -13,5 +13,5 @@ export const initialControls = {
   }
 };
 
-export const Control$ = new BehaviorSubject(initialControls);
-export const Movement$ = new BehaviorSubject(tween.exponential.easeInOut);
+export const control$ = new BehaviorSubject(initialControls);
+export const movement$ = new BehaviorSubject(tween.exponential.easeInOut);

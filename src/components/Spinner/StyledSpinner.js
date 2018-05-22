@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLogo = styled.img.attrs({
+const StyledSpinner = styled.img.attrs({
   style: ({ resize, speed, direction }) => {
     const range = [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const duration = speed < 1 ? 10 : speed > 10 ? 1 : range[speed];
@@ -13,7 +13,6 @@ const StyledLogo = styled.img.attrs({
 })`
   position: fixed;
   bottom: 5%;
-  left: 5%;
 
   animation-name: spin;
   animation-timing-function: linear;
@@ -27,18 +26,15 @@ const StyledLogo = styled.img.attrs({
       transform: rotate(360deg);
     }
     0% {
-      color: red;
-    }
-    25% {
-      color: yellow;
+      left: 0%;
     }
     50% {
-      color: blue;
+      left: 75%;
     }
     100% {
-      color: green;
+      left: 0%;
     }
   }
 `;
 
-export default StyledLogo;
+export default StyledSpinner;
