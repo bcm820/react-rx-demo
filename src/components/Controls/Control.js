@@ -5,16 +5,7 @@ export const Control = ({ label, value, handleChange, group }) => {
     <tr>
       <td>{label}</td>
       <td>
-        {typeof value === 'number' ? (
-          <input
-            type="number"
-            value={value}
-            min={label === 'speed' ? 1 : label === 'duration' ? 1000 : 0}
-            max={label === 'speed' ? 10 : label === 'duration' ? 5000 : 1000}
-            step={label === 'speed' ? 1 : label === 'duration' ? 100 : 20}
-            onChange={e => handleChange(group, label, e.target.value)}
-          />
-        ) : (
+        {label === 'direction' ? (
           <select
             style={{ width: '125px' }}
             onChange={e => handleChange(group, label, e.target.value)}
@@ -24,6 +15,15 @@ export const Control = ({ label, value, handleChange, group }) => {
             <option value="reverse">reverse</option>
             <option value="alternate">alternate</option>
           </select>
+        ) : (
+          <input
+            type="number"
+            value={value}
+            min={label === 'speed' ? 1 : label === 'duration' ? 1000 : 0}
+            max={label === 'speed' ? 10 : label === 'duration' ? 5000 : 1000}
+            step={label === 'speed' ? 1 : label === 'duration' ? 100 : 20}
+            onChange={e => handleChange(group, label, e.target.value)}
+          />
         )}
       </td>
     </tr>

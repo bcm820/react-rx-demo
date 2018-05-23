@@ -4,7 +4,7 @@ import logo from '../../assets/logo.svg';
 
 import { movement$, control$ } from '../../subjects';
 import { combineLatest } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, take, repeat } from 'rxjs/operators';
 import tween from 'xstream/extra/tween';
 import concat from 'xstream/extra/concat';
 
@@ -13,8 +13,9 @@ class Spinner extends React.Component {
 
   componentDidMount() {
     this._subscription = combineLatest(movement$, control$)
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(3000), take(1), repeat())
       .subscribe(([movement, controls]) => {
+        console.log('emit!');
         const { spin, resize } = controls;
         const { speed, direction } = spin;
         this.setState({ movement, speed, direction });

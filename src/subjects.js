@@ -1,6 +1,4 @@
 import { BehaviorSubject } from 'rxjs';
-import { take, repeatWhen } from 'rxjs/operators';
-import { interval } from 'rxjs';
 import tween from 'xstream/extra/tween';
 
 export const initialControls = {
@@ -15,13 +13,12 @@ export const initialControls = {
   }
 };
 
-// The control observable will multicast its current value roughly every 2 seconds.
-// TODO: Subscribe to control$ to get the user-defined duration... have it be consistent
-// across all event streaming... duration === push interval
-const complete = () => interval(2000);
-export const control$ = new BehaviorSubject(initialControls).pipe(
-  take(1),
-  repeatWhen(complete)
-);
-
+export const control$ = new BehaviorSubject(initialControls);
 export const movement$ = new BehaviorSubject(tween.exponential.easeInOut);
+
+// TODO:
+// - Replace tween with CSS animation percentages (for resize)
+// - Have "duration" and "movement" be a part of the initialControls
+// - Make Controls component more declarative (add 'type' onto each attribute to determine which control)
+// - Check subscriptions... unsubscribe as needed
+// - Add pause feature
