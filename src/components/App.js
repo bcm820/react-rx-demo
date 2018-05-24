@@ -1,11 +1,13 @@
 import React from 'react';
 
 import Controls from './Controls';
+import Presets from './Presets';
 import Spinner from './Spinner';
 
 const App = () => (
   <div>
-    <h4>React-Rx Demo</h4>
+    <p>React-Rx Demo</p>
+    <Presets />
     <Controls />
     <Spinner />
   </div>

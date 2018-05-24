@@ -1,31 +1,68 @@
 import React from 'react';
 
-export const Control = ({ label, value, handleChange, group }) => {
+export const Control = props => {
+  switch (props.control) {
+    case 'name':
+      return null;
+    case 'positionX':
+      return <SelectInput {...props} options={['right', 'left']} />;
+    case 'positionY':
+      return <SelectInput {...props} options={['top', 'bottom']} />;
+    case 'direction':
+      return (
+        <SelectInput {...props} options={['normal', 'reverse', 'alternate']} />
+      );
+    case 'timing':
+      return (
+        <SelectInput
+          {...props}
+          options={['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out']}
+        />
+      );
+    case 'playState':
+      return <PauseButton {...props} />;
+    default:
+      return <NumberInput {...props} />;
+  }
+};
+
+const SelectInput = ({ control, value, handleChange, options }) => (
+  <div>
+    <label>{control}: </label>
+    <select onChange={e => handleChange(control, e.target.value)} value={value}>
+      {options.map(value => (
+        <option key={value} value={value}>
+          {value}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+const NumberInput = ({ control, value, handleChange }) => (
+  <div>
+    <label>{control}: </label>
+    <input
+      type="number"
+      value={value}
+      min={control === 'duration' ? 1 : 0}
+      max={control === 'duration' ? 10 : 1000}
+      step={control === 'duration' ? 1 : 20}
+      onChange={e => handleChange(control, e.target.value)}
+    />
+  </div>
+);
+
+const PauseButton = ({ control, value, handleChange }) => {
+  let label, setting;
+  if (value === 'running') {
+    label = 'pause';
+    setting = 'paused';
+  } else {
+    label = 'play';
+    setting = 'running';
+  }
   return (
-    <tr>
-      <td>{label}</td>
-      <td>
-        {label === 'direction' ? (
-          <select
-            style={{ width: '125px' }}
-            onChange={e => handleChange(group, label, e.target.value)}
-            value={value}
-          >
-            <option value="normal">normal</option>
-            <option value="reverse">reverse</option>
-            <option value="alternate">alternate</option>
-          </select>
-        ) : (
-          <input
-            type="number"
-            value={value}
-            min={label === 'speed' ? 1 : label === 'duration' ? 1000 : 0}
-            max={label === 'speed' ? 10 : label === 'duration' ? 5000 : 1000}
-            step={label === 'speed' ? 1 : label === 'duration' ? 100 : 20}
-            onChange={e => handleChange(group, label, e.target.value)}
-          />
-        )}
-      </td>
-    </tr>
+    <button onClick={() => handleChange(control, setting)}>{label}</button>
   );
 };

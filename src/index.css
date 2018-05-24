@@ -15,12 +15,9 @@ div {
   margin-bottom: 20px;
 }
 
-input {
+input,
+select,
+button {
   width: 100px;
-  font-size: 20px;
-}
-
-select {
-  width: 250px;
   font-size: 20px;
 }

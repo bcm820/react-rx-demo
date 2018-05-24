@@ -1,45 +1,41 @@
 import React from 'react';
-import { initialControls, control$ } from '../../subjects';
-import { ControlGroup } from './ControlGroup';
-import Movements from './Movements';
+import { Control } from './Control';
+import { control$, appState } from '../../subjects';
 
-class NumberControls extends React.Component {
-  state = initialControls;
+class Controls extends React.Component {
+  state = appState;
 
-  componentDidUpdate() {
-    control$.next(this.state);
+  componentDidMount() {
+    this._subscription = control$.subscribe(controls =>
+      this.setState(controls)
+    );
   }
 
-  handleChange = (groupLabel, control, value) => {
+  componentWillUnmount() {
+    this._subscription.unsubscribe();
+  }
+
+  handleChange = (control, value) => {
     const intValue = parseInt(value, 10);
-    const group = this.state[groupLabel];
-    this.setState({
-      [groupLabel]: {
-        ...group,
-        [control]: isNaN(intValue) ? value : intValue
-      }
+    control$.next({
+      ...this.state,
+      [control]: isNaN(intValue) ? value : intValue,
+      name: 'custom'
     });
   };
 
   render() {
-    return (
-      <span>
-        {Object.keys(this.state).map(this.renderControlGroup)}
-        <Movements />
-      </span>
-    );
+    return Object.keys(this.state).map(this.renderControl);
   }
 
-  renderControlGroup = label => {
-    return (
-      <ControlGroup
-        key={label}
-        label={label}
-        controls={this.state[label]}
-        handleChange={this.handleChange}
-      />
-    );
-  };
+  renderControl = key => (
+    <Control
+      key={key}
+      control={key}
+      value={this.state[key]}
+      handleChange={this.handleChange}
+    />
+  );
 }
 
-export default NumberControls;
+export default Controls;

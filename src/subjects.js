@@ -1,24 +1,42 @@
 import { BehaviorSubject } from 'rxjs';
-import tween from 'xstream/extra/tween';
 
-export const initialControls = {
-  spin: {
-    speed: 5,
-    direction: 'normal'
+export const presets = {
+  basic: {
+    name: 'basic',
+    duration: 5,
+    direction: 'normal',
+    timing: 'linear',
+    resizeFrom: 50,
+    resizeTo: 150,
+    positionX: 'right',
+    positionY: 'top',
+    playState: 'running'
   },
-  resize: {
-    from: 80,
-    to: 800,
-    duration: 1000
+
+  'big & slow': {
+    name: 'big & slow',
+    duration: 10,
+    direction: 'reverse',
+    timing: 'ease-in',
+    resizeFrom: 100,
+    resizeTo: 800,
+    positionX: 'right',
+    positionY: 'bottom',
+    playState: 'running'
+  },
+
+  'fast & furious': {
+    name: 'fast & furious',
+    duration: 1,
+    direction: 'alternate',
+    timing: 'ease-out',
+    resizeFrom: 10,
+    resizeTo: 1000,
+    positionX: 'left',
+    positionY: 'top',
+    playState: 'running'
   }
 };
 
-export const control$ = new BehaviorSubject(initialControls);
-export const movement$ = new BehaviorSubject(tween.exponential.easeInOut);
-
-// TODO:
-// - Replace tween with CSS animation percentages (for resize)
-// - Have "duration" and "movement" be a part of the initialControls
-// - Make Controls component more declarative (add 'type' onto each attribute to determine which control)
-// - Check subscriptions... unsubscribe as needed
-// - Add pause feature
+export const appState = presets.basic;
+export const control$ = new BehaviorSubject(appState);
