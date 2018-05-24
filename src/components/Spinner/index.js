@@ -1,25 +1,10 @@
 import React from 'react';
+import { connect } from '../../rxstore';
 import SpinnerAnimation from './SpinnerAnimation';
-import logo from '../../assets/logo.svg';
-import { control$, appState } from '../../subjects';
+import SpinnerLogo from '../../assets/logo.svg';
 
-class Spinner extends React.Component {
-  state = appState;
+const Spinner = props => (
+  <SpinnerAnimation src={SpinnerLogo} {...props.nextState} />
+);
 
-  componentDidMount() {
-    this._subscription = control$.subscribe(
-      next => this.setState(next),
-      error => console.log(error)
-    );
-  }
-
-  componentWillUnmount() {
-    this._subscription.unsubscribe();
-  }
-
-  render() {
-    return <SpinnerAnimation src={logo} {...this.state} />;
-  }
-}
-
-export default Spinner;
+export default connect(Spinner);

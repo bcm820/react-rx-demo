@@ -1,43 +1,30 @@
 import React from 'react';
-import { control$, appState, presets } from '../subjects';
+import { connect } from '../rxstore';
+import data from '../data';
 
 class Presets extends React.Component {
-  state = appState;
-
-  componentDidMount() {
-    this._subscription = control$.subscribe(
-      next => this.setState(next),
-      error => console.log(error)
-    );
-  }
-
-  componentWillUnmount() {
-    this._subscription.unsubscribe();
-  }
-
   handleChange = event => {
     event.target.value === 'custom'
-      ? control$.next({ ...this.state, name: 'custom' })
-      : control$.next(presets[event.target.value]);
+      ? this.props.setNext({ ...this.props.nextState, name: 'custom' })
+      : this.props.setNext(data[event.target.value]);
   };
 
   render() {
+    const presets = Object.keys(data);
     return (
       <div>
         <label>preset: </label>
-        <select onChange={this.handleChange} value={this.state.name}>
-          {Object.keys(presets).map(this.renderPreset)}
+        <select onChange={this.handleChange} value={this.props.nextState.name}>
+          {presets.map(key => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
           <option value="custom">custom</option>
         </select>
       </div>
     );
   }
-
-  renderPreset = key => (
-    <option key={key} value={key}>
-      {key}
-    </option>
-  );
 }
 
-export default Presets;
+export default connect(Presets);
