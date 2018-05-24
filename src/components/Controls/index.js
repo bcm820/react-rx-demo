@@ -6,9 +6,7 @@ class Controls extends React.Component {
   state = appState;
 
   componentDidMount() {
-    this._subscription = control$.subscribe(controls =>
-      this.setState(controls)
-    );
+    this._subscription = control$.subscribe(next => this.setState(next));
   }
 
   componentWillUnmount() {

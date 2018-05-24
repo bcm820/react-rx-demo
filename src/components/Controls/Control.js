@@ -48,21 +48,14 @@ const NumberInput = ({ control, value, handleChange }) => (
       min={control === 'duration' ? 1 : 0}
       max={control === 'duration' ? 10 : 1000}
       step={control === 'duration' ? 1 : 20}
-      onChange={e => handleChange(control, e.target.value)}
+      onChange={e => handleChange(control, parseInt(e.target.value, 10))}
     />
   </div>
 );
 
 const PauseButton = ({ control, value, handleChange }) => {
-  let label, setting;
-  if (value === 'running') {
-    label = 'pause';
-    setting = 'paused';
-  } else {
-    label = 'play';
-    setting = 'running';
-  }
+  const setting = value === 'running' ? 'paused' : 'running';
   return (
-    <button onClick={() => handleChange(control, setting)}>{label}</button>
+    <button onClick={() => handleChange(control, setting)}>{value}</button>
   );
 };
