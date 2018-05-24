@@ -7,7 +7,10 @@ class Spinner extends React.Component {
   state = appState;
 
   componentDidMount() {
-    this._subscription = control$.subscribe(next => this.setState(next));
+    this._subscription = control$.subscribe(
+      next => this.setState(next),
+      error => console.log(error)
+    );
   }
 
   componentWillUnmount() {
