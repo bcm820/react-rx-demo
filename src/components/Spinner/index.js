@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from '../../rxstore';
+import { rxConnect } from '../../rxStore';
 import SpinnerAnimation from './SpinnerAnimation';
 import SpinnerLogo from '../../assets/logo.svg';
 
 const Spinner = props => (
-  <SpinnerAnimation src={SpinnerLogo} {...props.nextState} />
+  <SpinnerAnimation src={SpinnerLogo} {...props.rxState} />
 );
 
-export default connect(Spinner);
+export default rxConnect(Spinner);

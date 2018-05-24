@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from '../rxstore';
-import data from '../data';
+import { rxConnect } from '../../rxStore';
+import data from '../../data';
 
 class Presets extends React.Component {
   handleChange = event => {
     event.target.value === 'custom'
-      ? this.props.setNext({ ...this.props.nextState, name: 'custom' })
-      : this.props.setNext(data[event.target.value]);
+      ? this.props.setRxState({ ...this.props.rxState, name: 'custom' })
+      : this.props.setRxState(data[event.target.value]);
   };
 
   render() {
@@ -14,7 +14,7 @@ class Presets extends React.Component {
     return (
       <div>
         <label>preset: </label>
-        <select onChange={this.handleChange} value={this.props.nextState.name}>
+        <select onChange={this.handleChange} value={this.props.rxState.name}>
           {presets.map(key => (
             <option key={key} value={key}>
               {key}
@@ -27,4 +27,4 @@ class Presets extends React.Component {
   }
 }
 
-export default connect(Presets);
+export default rxConnect(Presets);
