@@ -17,12 +17,7 @@ class Controls extends React.Component {
   }
 
   handleChange = (control, value) => {
-    const intValue = parseInt(value, 10);
-    control$.next({
-      ...this.state,
-      [control]: isNaN(intValue) ? value : intValue,
-      name: 'custom'
-    });
+    control$.next({ ...this.state, [control]: value, name: 'custom' });
   };
 
   render() {
