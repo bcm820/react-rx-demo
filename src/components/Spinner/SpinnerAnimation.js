@@ -28,6 +28,7 @@ const spinnerAnimation = ({
 const SpinnerAnimation = styled.img`
   position: fixed;
   z-index: -1;
+  opacity: ${props => (props.mirrored && !props.mirror ? 0 : 1)};
   animation-name: ${spinnerAnimation};
   animation-iteration-count: infinite;
   animation-timing-function: ${props => props.timing};

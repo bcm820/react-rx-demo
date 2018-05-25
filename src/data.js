@@ -8,6 +8,7 @@ export default {
     resizeTo: 150,
     positionX: 'right',
     positionY: 'top',
+    mirror: false,
     playState: 'running'
   },
 
@@ -20,6 +21,7 @@ export default {
     resizeTo: 800,
     positionX: 'right',
     positionY: 'bottom',
+    mirror: false,
     playState: 'running'
   },
 
@@ -32,6 +34,7 @@ export default {
     resizeTo: 1000,
     positionX: 'left',
     positionY: 'top',
+    mirror: false,
     playState: 'running'
   }
 };

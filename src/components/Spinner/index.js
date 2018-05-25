@@ -1,5 +1,5 @@
 import React from 'react';
-import { rxConnect } from '../../rxStore';
+import { rxConnect, rxConnectMirror } from '../../rxStore';
 import SpinnerAnimation from './SpinnerAnimation';
 import SpinnerLogo from '../../assets/logo.svg';
 
@@ -8,3 +8,7 @@ const Spinner = props => (
 );
 
 export default rxConnect(Spinner);
+
+export const MirroredSpinner = rxConnectMirror(props => (
+  <SpinnerAnimation src={SpinnerLogo} {...props.rxState} mirrored={true} />
+));

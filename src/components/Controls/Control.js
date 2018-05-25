@@ -19,8 +19,10 @@ export const Control = props => {
           options={['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out']}
         />
       );
+    case 'mirror':
+      return <Checkbox {...props} />;
     case 'playState':
-      return <PauseButton {...props} />;
+      return <ToggleButton {...props} />;
     default:
       return <NumberInput {...props} />;
   }
@@ -53,7 +55,20 @@ const NumberInput = ({ control, value, handleChange }) => (
   </div>
 );
 
-const PauseButton = ({ control, value, handleChange }) => {
+const Checkbox = ({ control, value, handleChange }) => {
+  return (
+    <div>
+      <label>mirror: </label>
+      <input
+        type="checkbox"
+        checked={value}
+        onChange={() => handleChange(control, !value)}
+      />
+    </div>
+  );
+};
+
+const ToggleButton = ({ control, value, handleChange }) => {
   const setting = value === 'running' ? 'paused' : 'running';
   return (
     <button onClick={() => handleChange(control, setting)}>{value}</button>
