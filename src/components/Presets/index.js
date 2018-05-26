@@ -4,9 +4,11 @@ import data from '../../data';
 
 class Presets extends React.Component {
   handleChange = event => {
-    event.target.value === 'custom'
-      ? this.props.setRxState({ ...this.props.rxState, name: 'custom' })
-      : this.props.setRxState(data[event.target.value]);
+    const { rxState, setRxState } = this.props;
+    const { value } = event.target;
+    value === 'custom'
+      ? setRxState({ ...rxState, name: 'custom' })
+      : setRxState({ ...data[value], mirror: rxState.mirror });
   };
 
   render() {

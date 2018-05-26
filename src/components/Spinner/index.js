@@ -1,14 +1,22 @@
 import React from 'react';
-import { rxConnect, rxConnectMirror } from '../../rxStore';
+import { rxConnect, rxConnectCopies } from '../../rxStore';
 import SpinnerAnimation from './SpinnerAnimation';
 import SpinnerLogo from '../../assets/logo.svg';
 
-const Spinner = props => (
+export const Spinner = rxConnect(props => (
   <SpinnerAnimation src={SpinnerLogo} {...props.rxState} />
-);
-
-export default rxConnect(Spinner);
-
-export const MirroredSpinner = rxConnectMirror(props => (
-  <SpinnerAnimation src={SpinnerLogo} {...props.rxState} mirrored={true} />
 ));
+
+export const SpinnerCopies = rxConnectCopies(
+  props =>
+    !Array.isArray(props.rxState)
+      ? null
+      : props.rxState.map((config, key) => (
+          <SpinnerAnimation
+            src={SpinnerLogo}
+            key={key}
+            {...config}
+            copy={true}
+          />
+        ))
+);

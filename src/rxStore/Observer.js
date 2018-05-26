@@ -2,12 +2,15 @@ import React from 'react';
 
 export const observe = (store$, ...operators) => Component =>
   class Observer extends React.PureComponent {
-    state = {};
+    state = { rxState: {} };
 
     componentDidMount() {
       this._subscription = store$
         .pipe(...operators)
-        .subscribe(next => this.setState(next), error => console.log(error));
+        .subscribe(
+          next => this.setState({ rxState: next }),
+          error => console.log(error)
+        );
     }
 
     componentWillUnmount() {
@@ -22,7 +25,7 @@ export const observe = (store$, ...operators) => Component =>
       return (
         <Component
           {...this.props}
-          rxState={this.state}
+          rxState={this.state.rxState}
           setRxState={this.setRxState}
         />
       );

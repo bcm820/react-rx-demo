@@ -5,7 +5,7 @@ export default {
     direction: 'normal',
     timing: 'linear',
     resizeFrom: 50,
-    resizeTo: 150,
+    resizeTo: 300,
     positionX: 'right',
     positionY: 'top',
     mirror: false,
