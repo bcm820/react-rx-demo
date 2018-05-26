@@ -17,7 +17,7 @@ const store$ = new BehaviorSubject(initialState);
 // i.e. rxConnect(WrappedComponent)
 export const rxConnect = observe(store$);
 
-// OPTIONAL:
+// Additional Operators:
 // Rxjs uses many "pipeable" operators, pure functions that
 // can be added as additional arguments to our `observe` function
 // to modify the behavior of the store$ subscription.
