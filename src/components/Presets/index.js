@@ -5,10 +5,10 @@ import data from '../../data';
 class Presets extends React.Component {
   handleChange = event => {
     const { rxState, setRxState } = this.props;
-    const { value } = event.target;
-    value === 'custom'
+    const { value: configKey } = event.target;
+    configKey === 'custom'
       ? setRxState({ ...rxState, name: 'custom' })
-      : setRxState({ ...data[value], mirror: rxState.mirror });
+      : setRxState({ ...data[configKey], mirror: rxState.mirror });
   };
 
   render() {
