@@ -1,7 +1,5 @@
 ## react-Rx
 
----
-
 This repo demonstrates how to do state management using an `Observable`.
 
 What is an observable?
@@ -62,3 +60,5 @@ const rxConnectMapped = observe(store$, mapRxStateToProps);
 ```
 
 To learn more about RxJS operators, see [RxJS 5 Operators By Example](https://www.learnrxjs.io/operators/).
+
+Also, see [a redux implementation](https://github.com/bcmendoza/react-rx-demo/tree/reduxified) here.
