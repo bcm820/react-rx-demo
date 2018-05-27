@@ -28,10 +28,14 @@ export const Control = props => {
   }
 };
 
-const SelectInput = ({ control, value, handleChange, options }) => (
+const SelectInput = ({ control, value, handleChange, mirror, options }) => (
   <div>
     <label>{control}: </label>
-    <select onChange={e => handleChange(control, e.target.value)} value={value}>
+    <select
+      disabled={(control === 'positionX' || control === 'positionY') && mirror}
+      onChange={e => handleChange(control, e.target.value)}
+      value={value}
+    >
       {options.map(value => (
         <option key={value} value={value}>
           {value}

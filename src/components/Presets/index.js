@@ -1,14 +1,15 @@
 import React from 'react';
 import { rxConnect } from '../../rxStore';
+import { setPreset, setToCustom } from '../../rxStore/actions';
 import data from '../../data';
 
 class Presets extends React.Component {
   handleChange = event => {
-    const { rxState, setRxState } = this.props;
-    const { value: configKey } = event.target;
-    configKey === 'custom'
-      ? setRxState({ ...rxState, name: 'custom' })
-      : setRxState({ ...data[configKey], mirror: rxState.mirror });
+    const { dispatch } = this.props;
+    const { value: preset } = event.target;
+    preset === 'custom'
+      ? dispatch(setToCustom())
+      : dispatch(setPreset(data[preset]));
   };
 
   render() {

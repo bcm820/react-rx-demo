@@ -1,4 +1,5 @@
 import React from 'react';
+import reducer from './reducer';
 
 export const observe = (store$, ...operators) => Component =>
   class Observer extends React.PureComponent {
@@ -17,16 +18,17 @@ export const observe = (store$, ...operators) => Component =>
       this._subscription.unsubscribe();
     }
 
-    setRxState(value) {
-      store$.next(value);
-    }
+    dispatch = action => {
+      const { rxState } = this.state;
+      store$.next(reducer(rxState, action));
+    };
 
     render() {
       return (
         <Component
           {...this.props}
           rxState={this.state.rxState}
-          setRxState={this.setRxState}
+          dispatch={this.dispatch}
         />
       );
     }

@@ -1,21 +1,25 @@
 import React from 'react';
 import { rxConnect } from '../../rxStore';
+import { changeControl } from '../../rxStore/actions';
 import { Control } from './Control';
 
 class Controls extends React.Component {
-  handleChange = (control, value) => {
-    const { rxState, setRxState } = this.props;
-    const name = control === 'mirror' ? rxState.name : 'custom';
-    setRxState({ ...rxState, [control]: value, name });
+  handleChange = (label, value) => {
+    const { rxState, dispatch } = this.props;
+    const name = label === 'mirror' ? rxState.name : 'custom';
+    const control = { [label]: value, name };
+    dispatch(changeControl(control));
   };
 
   render() {
-    return Object.keys(this.props.rxState).map(key => (
+    const { rxState } = this.props;
+    return Object.keys(rxState).map(key => (
       <Control
         key={key}
         control={key}
-        value={this.props.rxState[key]}
+        value={rxState[key]}
         handleChange={this.handleChange}
+        mirror={rxState.mirror}
       />
     ));
   }
